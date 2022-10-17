@@ -32,6 +32,7 @@
 #include <cassert>
 #include <stdexcept>
 #include <unordered_set>
+#include <cstring>
 
 #include "ext/glad/glad.h"
 
