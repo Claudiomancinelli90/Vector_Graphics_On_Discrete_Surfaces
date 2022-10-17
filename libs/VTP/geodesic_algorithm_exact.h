@@ -5,6 +5,7 @@
 #include "geodesic_algorithm_exact_elements.h"
 #include "geodesic_memory.h"
 #include "stdafx.h"
+#include <cstring>
 
 namespace geodesic_VTP {
 

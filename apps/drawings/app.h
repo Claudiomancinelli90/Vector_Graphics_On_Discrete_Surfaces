@@ -87,7 +87,7 @@ struct App_base {
   shade_material *mesh_material = nullptr;
   shade_shape *mesh_shape = nullptr;
   shade_camera *ogl_camera = {};
-  shade_params shade_params{};
+  shade_params m_shade_params{};
   float camera_focus;
   shape_bvh bvh;
   bool started = false;
@@ -171,7 +171,7 @@ inline void update_camera_info(App_base &app, const gui_input &input) {
 
   app.matrices.view = frame_to_mat(inverse(camera.frame));
   app.matrices.projection = perspective_mat(
-      camera_yfov, camera.aspect, app.shade_params.near, app.shade_params.far);
+      camera_yfov, camera.aspect, app.m_shade_params.near, app.m_shade_params.far);
   app.matrices.projection_view = app.matrices.projection * app.matrices.view;
 }
 Added_Path *add_path_shape(App_base &app, const geodesic_path &path,

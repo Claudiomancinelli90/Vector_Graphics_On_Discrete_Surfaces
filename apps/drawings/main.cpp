@@ -2283,8 +2283,8 @@ void set_common_uniforms(const App &app, const ogl_program *program) {
   set_uniform(program, "projection", projection);
   set_uniform(program, "eye", app.ogl_camera->frame.o);
   set_uniform(program, "envlight", (int)app.envlight);
-  set_uniform(program, "gamma", app.shade_params.gamma);
-  set_uniform(program, "exposure", app.shade_params.exposure);
+  set_uniform(program, "gamma", app.m_shade_params.gamma);
+  set_uniform(program, "exposure", app.m_shade_params.exposure);
   // set_uniform(program, "size", app.line_size);
   if (app.scene->environments.size()) {
     auto &env = app.scene->environments.front();
@@ -2733,7 +2733,7 @@ void draw_scene(const App &app, const vec4i &viewport) {
   clear_ogl_framebuffer(vec4f{0, 0, 0, 1});
 
   // Draw mesh and environment.
-  draw_scene(app.scene, app.ogl_camera, viewport, app.shade_params);
+  draw_scene(app.scene, app.ogl_camera, viewport, app.m_shade_params);
 
   auto camera_aspect = (float)viewport.z / (float)viewport.w;
   auto camera_yfov =
@@ -2744,7 +2744,7 @@ void draw_scene(const App &app, const vec4i &viewport) {
              yocto::atan(app.ogl_camera->film / (2 * app.ogl_camera->lens)));
   auto view = frame_to_mat(inverse(app.ogl_camera->frame));
   auto projection = perspective_mat(
-      camera_yfov, camera_aspect, app.shade_params.near, app.shade_params.far);
+      camera_yfov, camera_aspect, app.m_shade_params.near, app.m_shade_params.far);
   if (app.show_edges) {
     auto program = &app.ogl_shaders.at("lines");
     bind_program(program);
